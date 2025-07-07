@@ -3,8 +3,8 @@ import pygame
 from Helper import Chewbacca, StormTrooper
 
 # Background Screen
-SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 1200
+SCREEN_WIDTH = 1100
+SCREEN_HEIGHT = 1100
 BACKGROUND_img =
 
 #start the library
