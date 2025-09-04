@@ -41,7 +41,19 @@ class StormTrooper:
     def draw(self, screen):
         screen.blit(self.img, (self.pos_x, self.pos_y))
 
+class Bullet:
+    def __init__(self, x, y):
+        img = pygame.image.load('Media/Bullet.png')
+        self.img = pygame.transform.scale(img, (20, 20))
+        self.pos_x = x + 90
+        self.pos_y = y + 35
+        self.speed = 5
 
+    def animate(self):
+        self.pos_x += self.speed
+
+    def draw(self, screen):
+        screen.blit(self.img, (self.pos_x, self.pos_y))
 
 
 
