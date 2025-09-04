@@ -11,23 +11,15 @@ class Chewbacca:
         #Character position
         self.pos_x = 100
         self.pos_y = 600
+        self.speed = 4
 
     def animate(self):
-        moving_up = False
-        moving_down = False
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    moving_up = True
-                    moving_down = False
-                    self.pos_y -= 10
-                elif event.key == pygame.K_DOWN:
-                    moving_up = False
-                    moving_down = True
-                    self.pos_y += 10
-            elif event.type == pygame.KEYUP:
-                moving_up = False
-                moving_down = False
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_UP]:
+            self.pos_y -= self.speed
+        if keys[pygame.K_DOWN]:
+            self.pos_y += self.speed
+
 
 
 
@@ -41,6 +33,10 @@ class StormTrooper:
         self.img = pygame.transform.flip(img, True, False)
         self.pos_x = random.randint(800, 1000)
         self.pos_y = random.randint(0, 1000)
+        self.speed = 2
+
+    def animate(self):
+        self.pos_x -= self.speed
 
     def draw(self, screen):
         screen.blit(self.img, (self.pos_x, self.pos_y))
