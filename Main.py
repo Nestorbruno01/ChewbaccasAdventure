@@ -1,6 +1,7 @@
 import pygame
+import random
 
-from Helper import Chewbacca, StormTrooper, Bullet
+from Helper import Chewbacca, StormTrooper, Bullet, isCollided
 
 # Background Screen
 SCREEN_WIDTH = 1100
@@ -23,6 +24,12 @@ cooldown = 0
 clock = pygame.time.Clock()
 
 bullets = []
+stormtroops = []
+
+# Timing the spawns in frames
+SPAWN_min = 90
+SPAWN_max = 150
+spawn_timer = random.randint(SPAWN_min, SPAWN_max)
 
 flag = True
 while flag:
@@ -41,18 +48,31 @@ while flag:
                 bullets.append(Bullet(chewbacca.pos_x, chewbacca.pos_y))
                 cooldown = 15
 
+    spawn_timer -= 1
+    if spawn_timer < 0:
+        stormtroops.append(StormTrooper())
+        spawn_timer = random.randint(SPAWN_min, SPAWN_max)
+
     # Using blit to copy image to screen at a specific location
     chewbacca.draw(screen)
-    stormtrooper.draw(screen)
-
     chewbacca.animate()
-    stormtrooper.animate()
 
     for b in bullets[:]:
         b.draw(screen)
         b.animate()
         if b.pos_x > SCREEN_WIDTH:
             bullets.remove(b)
+
+    for st in stormtroops:
+        st.draw(screen)
+        st.animate()
+
+    for b in bullets:
+        for st in stormtroops:
+            if isCollided(b, st):
+                bullets.remove(b)
+                stormtroops.remove(st)
+                break
 
     if cooldown > 0:
         cooldown -= 1

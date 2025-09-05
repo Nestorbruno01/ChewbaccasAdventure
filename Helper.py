@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 from IPython.core.completer import position_to_cursor
 from IPython.core.events import post_execute
 
@@ -54,6 +55,24 @@ class Bullet:
 
     def draw(self, screen):
         screen.blit(self.img, (self.pos_x, self.pos_y))
+
+def isCollided(Bullet, Stormtrooper):
+    #finding the center coordinates
+    bx = Bullet.pos_x + Bullet.img.get_width()  / 2
+    by = Bullet.pos_y + Bullet.img.get_height() / 2
+    tx = Stormtrooper.pos_x + Stormtrooper.img.get_width()  / 2
+    ty = Stormtrooper.pos_y + Stormtrooper.img.get_height() / 2
+
+    distance = math.sqrt(math.pow(bx - tx, 2) + math.pow(by - ty, 2))
+
+    if distance < 60:
+        return True
+    else:
+        return False
+
+
+
+
 
 
 
