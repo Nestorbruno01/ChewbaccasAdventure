@@ -1,7 +1,7 @@
 import pygame
 import random
 
-from Helper import Chewbacca, StormTrooper, Bullet, isCollided
+from Helper import Chewbacca, StormTrooper, Bullet, isCollided, draw_score
 
 # Background Screen
 SCREEN_WIDTH = 1100
@@ -16,7 +16,6 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 chewbacca = Chewbacca()
-stormtrooper = StormTrooper()
 
 cooldown = 0
 
@@ -31,6 +30,8 @@ SPAWN_min = 90
 SPAWN_max = 150
 spawn_timer = random.randint(SPAWN_min, SPAWN_max)
 
+score = 0
+
 flag = True
 while flag:
     # ticking the clock
@@ -42,12 +43,17 @@ while flag:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             flag = False
+        # bullet shooting, when pressing SPACE
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             if cooldown == 0:
                 #spawning a bullet at Chewbaccas position
                 bullets.append(Bullet(chewbacca.pos_x, chewbacca.pos_y))
-                cooldown = 15
+                cooldown = 25
+    # Bullet cooldown
+    if cooldown > 0:
+        cooldown -= 1
 
+    # spawning the stormtroops
     spawn_timer -= 1
     if spawn_timer < 0:
         stormtroops.append(StormTrooper())
@@ -57,25 +63,28 @@ while flag:
     chewbacca.draw(screen)
     chewbacca.animate()
 
+    # animating the bullets.
     for b in bullets[:]:
         b.draw(screen)
         b.animate()
         if b.pos_x > SCREEN_WIDTH:
             bullets.remove(b)
 
+    # animating the troops
     for st in stormtroops:
         st.draw(screen)
         st.animate()
 
+    #Collision detection
     for b in bullets:
         for st in stormtroops:
             if isCollided(b, st):
                 bullets.remove(b)
                 stormtroops.remove(st)
+                score += 1
                 break
 
-    if cooldown > 0:
-        cooldown -= 1
+    draw_score(screen, f"Score: {score}", 16, 16)
 
     # refresh the display
     pygame.display.flip()
