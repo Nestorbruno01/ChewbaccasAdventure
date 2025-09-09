@@ -1,11 +1,11 @@
 import pygame
 import random
 
-from Helper import Chewbacca, StormTrooper, Bullet, isCollided, draw_score
+from Helper import Chewbacca, StormTrooper, Bullet, isCollided, draw_score, Game_over
 
 # Background Screen
 SCREEN_WIDTH = 1100
-SCREEN_HEIGHT = 1100
+SCREEN_HEIGHT = 800
 BACKGROUND_img = pygame.image.load('Media/Background.png')
 BACKGROUND_img = pygame.transform.scale(BACKGROUND_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
@@ -75,6 +75,10 @@ while flag:
         st.draw(screen)
         st.animate()
 
+        #Game over if Stormtrooper gets past
+        if st.pos_x + st.img.get_width() < chewbacca.pos_x:
+            Game_over(screen)
+
     #Collision detection
     for b in bullets:
         for st in stormtroops:
@@ -85,6 +89,7 @@ while flag:
                 break
 
     draw_score(screen, f"Score: {score}", 16, 16)
+
 
     # refresh the display
     pygame.display.flip()

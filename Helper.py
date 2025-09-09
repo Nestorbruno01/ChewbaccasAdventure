@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 import random
 import math
@@ -33,7 +35,7 @@ class StormTrooper:
         img = pygame.transform.scale(img, (100, 100))
         self.img = pygame.transform.flip(img, True, False)
         self.pos_x = random.randint(1000, 1200)
-        self.pos_y = random.randint(0, 900)
+        self.pos_y = random.randint(0, 700)
         self.speed = 2
 
     def animate(self):
@@ -74,6 +76,28 @@ def draw_score(screen, text, x, y, color=(255, 255, 255), size=28, font_name=Non
     base_font = pygame.font.SysFont("Courier New", 48, bold=True)
     surface = base_font.render(text, True, color)
     screen.blit(surface, (x,y))
+
+def Game_over(screen):
+    img = pygame.image.load('Media/game_over.png')
+
+    sw, sh = screen.get_size()
+    iw, ih = img.get_size()
+    rect = img.get_rect(center = (sw / 2, sh / 2))
+
+    frozen = screen.copy()
+    clock = pygame.time.Clock()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
+        screen.blit(frozen, (0, 0))
+        screen.blit(img, rect)
+        pygame.display.flip()
+        clock.tick(60)
+
+
 
 
 
