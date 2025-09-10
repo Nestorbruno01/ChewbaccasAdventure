@@ -87,13 +87,56 @@ def Game_over(screen):
     frozen = screen.copy()
     clock = pygame.time.Clock()
 
+    font = pygame.font.SysFont("Courier New", 28, bold=True)
+    prompt = font.render("SPACE : RESTART | Q: QUIT", True, (255, 255, 255))
+    prompt_rect = prompt.get_rect(midtop=(sw / 2, rect.bottom + 16))
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit(0)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    pygame.quit()
+                    exit(0)
+                if event.key == pygame.K_SPACE:
+                    return True
+
+
         screen.blit(frozen, (0, 0))
         screen.blit(img, rect)
+        screen.blit(prompt, prompt_rect)
+        pygame.display.flip()
+        clock.tick(60)
+
+def start_screen(screen):
+    clock = pygame.time.Clock()
+    sw, sh = screen.get_size()
+
+    logo_img = pygame.image.load('Media/logo.png')
+    logo_img = pygame.transform.scale(logo_img, (500, 500))
+    logo_rect = logo_img.get_rect(center = (sw / 2, sh / 2))
+
+    prompt_font = pygame.font.SysFont("Courier New", 28, bold=True)
+    prompt = prompt_font.render("Press SPACE to start", False, (200, 200, 200))
+    prompt_rect = prompt.get_rect(midtop = (sw // 2, sh // 2 + 180))
+
+    controls_font = pygame.font.SysFont("Courier New", 20, bold=True)
+    controls = controls_font.render("Move: UP and DOWN | Shoot: SPACE", False, (200, 200, 200))
+    controls_rect = controls.get_rect(center = (sw // 2, sh // 2 + 260))
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                return
+        screen.fill((0, 0, 0))
+        screen.blit(logo_img, logo_rect)
+        screen.blit(prompt, prompt_rect)
+        screen.blit(controls, controls_rect)
         pygame.display.flip()
         clock.tick(60)
 
