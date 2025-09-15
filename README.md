@@ -4,6 +4,7 @@ You are the last line of defence for the Galactic Alliance. In this final battle
 Dodge and blast them as they come marching onto your screen. Keep your streak going, as your score rises with each hit and difficulty scales over time. 
 
 And old school retro game with chunky arcade HUD, inspired by gaming arcades. 
+
 ![Game screenshot](Media/Sample_media.png)
 
 ### Features
