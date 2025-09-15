@@ -4,7 +4,7 @@ You are the last line of defence for the Galactic Alliance. In this final battle
 Dodge and blast them as they come marching onto your screen. Keep your streak going, as your score rises with each hit and difficulty scales over time. 
 
 And old school retro game with chunky arcade HUD, inspired by gaming arcades. 
-![Bildschirmfoto 2025-09-15 um 16.29.32.png](../../Desktop/Bildschirmfoto%202025-09-15%20um%2016.29.32.png)
+![Game screenshot](Media/Sample_media.png)
 
 ### Features
 
@@ -17,11 +17,13 @@ And old school retro game with chunky arcade HUD, inspired by gaming arcades.
 ### Installation
 
 Before usage, please install required dependencies.
-
+```
 pip install -r requirements.txt
-
+```
 ### Usage
-
-python main.py
+Run the game
+```
+python3 main.py
+```
 
 
