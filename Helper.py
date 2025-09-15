@@ -140,6 +140,11 @@ def start_screen(screen):
         pygame.display.flip()
         clock.tick(60)
 
+def increase_difficulty(score):
+    level = score // 10
+    speed_multiplier = min(1.0 + 0.25 * level, 3.0)
+    return speed_multiplier
+
 
 
 

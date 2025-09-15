@@ -1,7 +1,7 @@
 import pygame
 import random
 
-from Helper import Chewbacca, StormTrooper, Bullet, isCollided, draw_score, Game_over, start_screen
+from Helper import Chewbacca, StormTrooper, Bullet, isCollided, draw_score, Game_over, start_screen, increase_difficulty
 
 # Background Screen
 SCREEN_WIDTH = 1100
@@ -26,7 +26,7 @@ clock = pygame.time.Clock()
 
 bullets = []
 stormtroops = []
-
+BASE_TROOPER_SPEED = 2
 # Timing the spawns in frames
 SPAWN_min = 90
 SPAWN_max = 150
@@ -55,10 +55,14 @@ while flag:
     if cooldown > 0:
         cooldown -= 1
 
+    speed_multiplier = increase_difficulty(score)
+
     # spawning the stormtroops
     spawn_timer -= 1
     if spawn_timer < 0:
-        stormtroops.append(StormTrooper())
+        st = StormTrooper()
+        st.speed = BASE_TROOPER_SPEED * speed_multiplier
+        stormtroops.append(st)
         spawn_timer = random.randint(SPAWN_min, SPAWN_max)
 
     # Using blit to copy image to screen at a specific location
@@ -80,6 +84,7 @@ while flag:
         #Game over if Stormtrooper gets past
         if st.pos_x + st.img.get_width() < chewbacca.pos_x:
             if Game_over(screen):
+                score = 0
                 chewbacca = Chewbacca()
                 cooldown = 0
                 bullets.clear()
