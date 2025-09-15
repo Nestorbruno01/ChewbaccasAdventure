@@ -1,0 +1,4 @@
+pip~=24.2
+attrs~=25.3.0
+pygame~=2.6.1
+ipython~=9.1.0
